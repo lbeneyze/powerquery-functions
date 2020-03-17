@@ -1,0 +1,53 @@
+/*
+Return the first date of a week based on the requirements that a week should fit within a calendar year.
+So the first day of the year is always: 01-01-YYYY
+So the last day of the year is always:  31-12-YYYY
+
+This function is based on http://excel-inside.pro/blog/2018/03/06/iso-week-in-power-query-m-language-and-power-bi/
+
+Parameter
+    inputWeek: Week for which the start date needs to be defined. The format is YYYY-W## i.e. `2017-W02`
+
+homepage: <>
+*/
+
+let
+    getStartDateFromWeekinYear = (inputWeek as text) as date =>
+        let
+            getDayOfWeek = (d as date) =>
+                let
+                    result = 1 + Date.DayOfWeek(d, Day.Sunday)
+                in
+                    result,
+
+            //get the year from the inputWeek
+            WeekYear = Number.FromText(
+                Text.Range(inputWeek, 0, 4)
+            ),
+
+            //get the weeknumber from the inputWeek
+            Week = Number.FromText(
+                Text.Range(inputWeek, 6, 2)
+            ),
+
+            FirstDayofyear =  #date(WeekYear,1,1),
+            
+            FirstDayofyearDayofWeek = getDayOfWeek(FirstDayofyear), 
+
+            LastDayofyear =  #date(WeekYear,12,31),
+
+            
+            theDate = 
+            if 
+                Week = 1
+            then 
+		//if week is 1 then week start automatically on 1-1-year
+                FirstDayofyear
+            else 
+                //if other week then add the number of days relative to the first week
+                Date.AddDays(FirstDayofyear, FirstDayofyearDayofWeek + ((Week-2)*7))  
+
+        in
+            theDate
+in
+    getStartDateFromWeekinYear
