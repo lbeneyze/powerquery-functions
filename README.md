@@ -1,7 +1,7 @@
 # powerquery-functions
-A repository with useful custom power query functions
+A repository with useful custom power query functions.
 
-The following function are available:
+The following functions are available:
 
 <h2>getStartDateFromWeekinYear</h2>
 File: powerquery-getEndDateFromWeekinYear
