@@ -1,0 +1,46 @@
+/*
+Return nearest rounded number by the provided interval
+Example 1: number 2.15 with interval 0.25 will be rounded to 2
+Example 2: number 2 with interval 0.25 will be rounded to 2
+Example 3: number 2.35 with interval 0.25 will be rounded to 2.5
+
+Parameter
+    inputNumber: number that needs to be rounded. The number can be decimal
+    inputInterval: interval to be taken account in the rounding. The number can be decimal
+
+homepage: <>
+*/
+
+let
+    RoundNearestByInterval = (inputNumber as number, inputInterval as number) as number =>
+        let
+            
+            //round down inputnumber
+            NumberRoundDown = Number.RoundDown(inputNumber, 0),
+
+            //get decimal from inputNumber
+            NumberDecimals = inputNumber - NumberRoundDown,
+
+            //
+            NumberRest = Value.Divide(NumberDecimals, inputInterval),
+
+            //
+            NumberRestRoundDown = Number.RoundDown(NumberRest, 0),
+
+            //
+            NumberRounded = 
+            if 
+               NumberRest = NumberRestRoundDown
+            then 
+                inputNumber
+            else 
+                if 
+                    NumberRest - NumberRestRoundDown <= 0.5
+                then 
+                    NumberRoundDown + (NumberRestRoundDown * inputInterval)
+                else 
+                    NumberRoundDown + ((NumberRestRoundDown+1) * inputInterval)
+        in
+            NumberRounded
+in
+    RoundNearestByInterval 
